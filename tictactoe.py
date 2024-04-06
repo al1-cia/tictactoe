@@ -1,4 +1,12 @@
-def check():
+import numpy as np
+#computer's turn
+def disp():
+    for i in range(0,9):
+        print(arr[i],end=" ")
+        if((i+1)%3==0):print("\n")
+    print("-----")
+
+def comp():
     global countX,countO,a
     #store taken positions
     for block in range(0,9):
@@ -7,65 +15,78 @@ def check():
         elif (arr[block]=='O'):
             dict['O'].append(block)
 
-    for lst in goal:
-        for elem in lst:
+    for gstate, wt in goal.items():
+        for elem in gstate:
             #assign weight to goal lists
             if elem in dict['X']:
-                countX+1
+                countX-1
             elif elem in dict['O']:
                 countO+1
-        if(countX==2):lst.extend([-countX])
-        elif(countO==2):lst.extend([countO])
-        else:lst.extend([countO])
+
+    if(countX==-2):wt=countX
+    elif(countO==2):wt=countO
+    else:wt=countO
 
     max=0
-    for lst in goal:
-        if(lst[3]>max):max=lst[3]
-    
+    for gstate, wt in goal.items():
+        if(np.abs(wt)>max):max=wt
+   
     #who's about to win?
-    if(max==1):
+    if(max<=1): #try to randomize
         for pos in range(0,9):
-            if(arr[pos]!=0):
+            if(arr[pos]==0):
                 arr[pos]='O'
+                break
 
     if(max==2):
-        for elem in lst:
-            if(elem not in dict['X']):
-                arr[elem]='O'
+        for gstate,wt in goal.items():
+            if(wt==2):
+                for elem in gstate:
+                    if(elem not in dict['O']):
+                        arr[elem]='O'
+
     elif(max==-2):
-        for elem in lst:
-            if(elem not in dict['O']):
-                arr[elem]='O'
-    if(max==3 or max==-3):
-        print(arr)
+        for gstate,wt in goal.items():
+            if(wt==-2):
+                for elem in gstate:
+                    if(elem not in dict['X']):
+                        arr[elem]='O'
+
+    if(np.abs(max)==3):
         if(max==3):print("GAME OVER")
         else:print("YOU WIN")
         a=1
         return
-    countX=countO=0 #reset weight of list
-    a= 0
-    print(arr)
+    
+    counterr=0
+    for i in arr:
+        if i!=0:
+            counterr+1
+    if (counterr==9): #draw state
+        print("DRAW")
+        a=1
+        return
+    countX=countO=0 #reset weights of gstates
+    a=0
 
 #user turn
 def usinp():
     usinput = int(input("Enter position of X:"))
     if ((arr[usinput]) == 0):
         arr[usinput] = 'X'
-        print(arr)
     else:
         print("Place is taken.\n")
         usinp()
-#computer turn
-def comp():
-    check()
 
 #initialize
 arr = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-goal=[[0,4,8],[1,4,7],[0,1,2],[2,4,6],[0,3,6],[3,4,5],[2,5,8],[6,7,8]]
-dict = {'X': [0,0,0,0,0,0,0,0,0], 'O': [0,0,0,0,0,0,0,0,0]}  # taken positions
+goal={(0,4,8):0,(1,4,7):0,(0,1,2):0,(2,4,6):0,(0,3,6):0,(3,4,5):0,(2,5,8):0,(6,7,8):0}
+dict = {'X': [0,0,0,0,0,0,0,0,0], 'O': [0,0,0,0,0,0,0,0,0]}  #taken positions
 countX=countO=0
 a=0
-print(arr)
+disp()
 while(a==0):
     usinp()
+    disp()
     comp()
+    disp()
