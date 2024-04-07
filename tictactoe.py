@@ -14,7 +14,8 @@ def comp():
              #CHANGE2 -- added inner if statement
             if block not in dictt['X']:
                 dictt['X'].append(block)
-        elif (arr[block]=='O'):
+        #CHANGE3 -- changed elif to if 
+        if (arr[block]=='O'):
              #CHANGE2 -- added inner if statement
             if block not in dictt['O']:
                 dictt['O'].append(block)
