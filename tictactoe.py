@@ -11,9 +11,13 @@ def comp():
     #store taken positions
     for block in range(0,9):
         if (arr[block]=='X'):
-            dictt['X'].append(block)
+             #CHANGE2 -- added inner if statement
+            if block not in dictt['X']:
+                dictt['X'].append(block)
         elif (arr[block]=='O'):
-            dictt['O'].append(block)
+             #CHANGE2 -- added inner if statement
+            if block not in dictt['O']:
+                dictt['O'].append(block)
 
     for gstate, wt in goal.items():
         counter=0
