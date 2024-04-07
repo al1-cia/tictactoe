@@ -64,6 +64,9 @@ def comp():
                 for elem in gstate:
                     if(elem not in dictt['O']):
                         arr[elem]='O'
+                        #CHANGE5 -- added a break to avoid placing O in two places
+                        #not sure if the problem of double moves is because of it cause the problem still persists
+                        break
 
     elif(maxx==-2):
         for gstate,wt in goal.items():
@@ -71,6 +74,9 @@ def comp():
                 for elem in gstate:
                     if(elem not in dictt['X']):
                         arr[elem]='O'
+                        #CHANGE5 -- added a break to avoid placing O in two places
+                        #not sure if the problem of double moves is because of it cause the problem still persists
+                        break
 
     if(np.abs(maxx)==3):
         if(maxx==3):print("GAME OVER")
