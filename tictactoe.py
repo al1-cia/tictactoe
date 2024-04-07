@@ -81,7 +81,9 @@ def usinp():
 #initialize
 arr = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 goal={(0,4,8):0,(1,4,7):0,(0,1,2):0,(2,4,6):0,(0,3,6):0,(3,4,5):0,(2,5,8):0,(6,7,8):0}
-dictt = {'X': [0,0,0,0,0,0,0,0,0], 'O': [0,0,0,0,0,0,0,0,0]}  #taken positions
+#~ dictt = {'X': [0,0,0,0,0,0,0,0,0], 'O': [0,0,0,0,0,0,0,0,0]}  #taken positions
+#CHANGE 1, changed the above to the below since it was unnecessary to have the 0s present
+dictt = {'X': [], 'O': []}
 counter=0
 a=0
 disp()
