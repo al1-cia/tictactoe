@@ -1,4 +1,6 @@
 import numpy as np
+import random 
+
 #computer's turn
 def disp():
     for i in range(0,9):
@@ -37,12 +39,25 @@ def comp():
             maxx=wt
    
     #who's about to win?
-    if(np.abs(maxx)==1 or np.abs(maxx)==0): #try to randomize
+    """
+    f(np.abs(maxx)==1 or np.abs(maxx)==0): #this is in case of first move,try to randomize
         for pos in range(0,9):
             if(arr[pos]==0):
                 arr[pos]='O'
                 break
-
+    """
+    #CHANGE4 -- changed the entire bit above in comments to the one below
+    #was done so that the first move of O does not get fixed to just position 0 of the grid.#
+    #better to randomise the first move of the comp to any position 
+    #also added import random statement above
+    checker=0
+    if(np.abs(maxx)==1 or np.abs(maxx)==0): #this is in case of first move,try to randomize
+        while checker==0:  
+            pos = random.randint(0,8)    
+            if(arr[pos]==0): 
+                arr[pos]='O'
+                checker=1
+            
     elif(maxx==2):
         for gstate,wt in goal.items():
             if(wt==2):
