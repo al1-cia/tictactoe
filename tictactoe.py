@@ -30,7 +30,9 @@ def maxfind():
     #which goal state has most weight
     for gstate, wt in goal.items():
         wtm=np.abs(wt)
-        if(wtm>np.abs(maxx)):
+        if(wtm>=np.abs(maxx)):
+            if(wtm==np.abs(maxx) and maxx==2):
+                continue
             maxx=wt
     return maxx
   
@@ -83,8 +85,6 @@ def comp():
                         arr[elem]='O'
                         end()
                         return
-
-    a=0
 
 #user turn
 def usinp():
