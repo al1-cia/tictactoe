@@ -53,7 +53,7 @@ def disp():
         pygame.draw.rect(SCREEN, YELLOW, pygame.Rect(x, y, 100, 100))  # Draw grid background
 
         # Draw thicker grid lines
-        line_width = 4
+        line_width = 3
         pygame.draw.rect(SCREEN, DARK_YELLOW, pygame.Rect(x, y, 100, 100), line_width)  # Draw grid lines
 
         if arr[i] == 'X':
