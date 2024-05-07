@@ -5,6 +5,11 @@ import random
 #mandatory init for the gui to work 
 pygame.init()
 
+#setting up the screen 
+screen_width = 1500
+screen_height = 150
+screen = pygame.display.set_mode((screen_width,screen_height)) 
+pygame.display.set_caption("Tic Tac Toe")
 
 #computer's turn
 def disp():
