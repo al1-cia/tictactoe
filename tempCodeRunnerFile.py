@@ -5,7 +5,7 @@ import random
 pygame.init()
 
 # Set up the screen
-WIDTH, HEIGHT = 300, 340
+WIDTH, HEIGHT = 1000, 770
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Tic-Tac-Toe")
 
