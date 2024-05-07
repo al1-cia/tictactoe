@@ -27,25 +27,37 @@ a = 0  # Game over flag
 # Functions
 def disp():
     SCREEN.fill(WHITE)
+
+    #centering the grid 
+    GRID_WIDTH = 300  # Width of the grid
+    GRID_HEIGHT = 300  # Height of the grid
+    GRID_X = (WIDTH - GRID_WIDTH) // 2
+    GRID_Y = (HEIGHT - GRID_HEIGHT) // 2
+
+
     for i in range(0, 9):
-        x = (i % 3) * 100
-        y = (i // 3) * 100
+        cell_size = GRID_WIDTH // 3  # Calculate the size of each cell based on the grid dimensions
+        row = i // 3  # Calculate the row index of the cell
+        col = i % 3  # Calculate the column index of the cell
+        x = GRID_X + col * cell_size  # Calculate the x-coordinate of the top-left corner of the cell
+        y = GRID_Y + row * cell_size  # Calculate the y-coordinate of the top-left corner of the cell
         if arr[i] == 'X':
             text = FONT.render('X', True, RED)
-            SCREEN.blit(text, (x + 40, y + 40))
+            text_rect = text.get_rect(center=(x + cell_size // 2, y + cell_size // 2))
+            SCREEN.blit(text, text_rect)
         elif arr[i] == 'O':
             text = FONT.render('O', True, BLUE)
-            SCREEN.blit(text, (x + 40, y + 40))
+            SCREEN.blit(text, (x + cell_size // 2 - 20, y + cell_size // 2 - 20))  # Draw the 'O' text at the center of the cell
         pygame.draw.rect(SCREEN, BLACK, pygame.Rect(x, y, 100, 100), 2)
     if a == 1:
         message = FONT.render("Game Over", True, BLACK)
-        SCREEN.blit(message, (50, 310))
+        SCREEN.blit(message, (WIDTH // 2 - 60, GRID_Y + GRID_HEIGHT + 10))
     elif a == 2:
         message = FONT.render("You Win", True, BLACK)
-        SCREEN.blit(message, (70, 310))
+        SCREEN.blit(message, (WIDTH // 2 - 50, GRID_Y + GRID_HEIGHT + 10))
     elif a == 3:
         message = FONT.render("Draw", True, BLACK)
-        SCREEN.blit(message, (90, 310))
+        SCREEN.blit(message, (WIDTH // 2 - 30, GRID_Y + GRID_HEIGHT + 10))
     pygame.display.flip()
 
 def maxfind():
@@ -135,7 +147,9 @@ while running:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN and a == 0:
             pos = pygame.mouse.get_pos()
+            #coordinates of the cell that the user has clicked on
             x, y = pos[0] // 100, pos[1] // 100
+            #passing index of the cell that the user has clicked on 
             usinp(y * 3 + x)
             disp()
             if a != 0:
