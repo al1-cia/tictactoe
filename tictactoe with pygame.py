@@ -6,10 +6,28 @@ import random
 pygame.init()
 
 #setting up the screen 
-screen_width = 1500
-screen_height = 150
+screen_width = 800
+screen_height = 900
 screen = pygame.display.set_mode((screen_width,screen_height)) 
 pygame.display.set_caption("Tic Tac Toe")
+
+
+#screen variables
+YELLOW = (255, 255, 0)
+DARK_YELLOW = (204, 204, 0)
+RED = (255, 0, 0)
+BLUE = (0, 0, 255)
+BLACK = (0, 0, 0)
+cell_size = min(screen_width, screen_height - 100) // 3
+
+## GUI FUNCTIONS::
+#to draw the grid 
+def draw_grid():
+    pygame.draw.rect(screen, YELLOW, (200, 200, 400, 400))
+    for i in range(1, 3):
+        pygame.draw.line(screen, DARK_YELLOW, (200, 200 + i * cell_size), (600, 200 + i * cell_size), 3)
+        pygame.draw.line(screen, DARK_YELLOW, (200 + i * cell_size, 200), (200 + i * cell_size, 600), 3)
+
 
 #computer's turn
 def disp():
@@ -107,3 +125,18 @@ while(a==0):
     print(goal)
     disp()
 
+#game loop 
+running = True
+while running:
+    #functionality for cross button (close)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    #background of screen = black
+    screen.fill(BLACK)
+
+    #DRAW grid
+    draw_grid()
+
+    #mandatory statement so that display is properly updated
+    pygame.display.update()
