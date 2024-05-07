@@ -110,3 +110,4 @@ while(a==0):
     if(a==1):continue
     comp()
     disp()
+    
