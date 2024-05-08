@@ -133,10 +133,12 @@ def disp():
 
 
 def reset_game():
-    global arr, a, dictt
+    global arr, a, dictt, player_score, computer_score
     arr = [0, 0, 0, 0, 0, 0, 0, 0, 0]
     dictt = {'X': [], 'O': []}
     a = 0
+    player_score = 0
+    computer_score = 0
 
 def maxfind():
     global arr
@@ -174,7 +176,6 @@ def end():
         else:
             a = 2
             player_score += 1
-        print("Game state updated to:", a)
         return
 
     counterr = 0
@@ -183,7 +184,6 @@ def end():
             counterr += 1
     if counterr == 9:
         a = 3
-        print("Game state updated to:", a)
         return
 
 def comp():
@@ -213,13 +213,26 @@ def comp():
                         return
 
 def usinp(pos):
-    if 0 <= pos <= 8:
+    global a
+    if 0 <= pos <= 8 and a == 0:
         row = pos // 3
         col = pos % 3
         if arr[pos] == 0:
             arr[pos] = 'X'
             end()
             return
+
+def handle_click(pos):
+    global a
+    if play_again_button.collidepoint(pos):
+        reset_game()
+        disp()
+    elif restart_game_button.collidepoint(pos):
+        reset_game()
+        disp()
+    elif quit_button.collidepoint(pos):
+        pygame.quit()
+        exit()
 
 # Game Loop
 running = True
@@ -228,28 +241,18 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.MOUSEBUTTONDOWN and a == 0:
+        elif event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
-            x, y = pos[0] - GRID_X, pos[1] - GRID_Y
-            cell_size = GRID_WIDTH // 3
-            cell_x = x // cell_size
-            cell_y = y // cell_size
-            cell_index = cell_y * 3 + cell_x
-            usinp(cell_index)
-            disp()
-            if a != 0:
-                continue
-            comp()
-            disp()# Inside the game loop
-        elif event.type == pygame.MOUSEBUTTONDOWN and a != 0:
-            if quit_button.collidepoint(event.pos):
-                running = False  # Set running to False to exit the game loop
-            elif play_again_button.collidepoint(event.pos):
-                reset_game()
+            handle_click(pos)
+            if a == 0:
+                x, y = pos[0] - GRID_X, pos[1] - GRID_Y
+                cell_size = GRID_WIDTH // 3
+                cell_x = x // cell_size
+                cell_y = y // cell_size
+                cell_index = cell_y * 3 + cell_x
+                usinp(cell_index)
+                if a == 0:
+                    comp()
                 disp()
-            elif restart_game_button.collidepoint(event.pos):
-                reset_game()
-                player_score = 0
-                computer_score = 0
-                disp()
+
 pygame.quit()
