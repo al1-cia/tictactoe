@@ -1,3 +1,4 @@
+#implementation with pygame
 import pygame
 import random
 # Initialize Pygame
@@ -9,14 +10,14 @@ pygame.display.set_caption("Tic-Tac-Toe")
 # Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-BLUE = (0, 0, 255)
-YELLOW = (255, 255, 0)
-DARK_YELLOW = (204, 204, 0)
-NEON_ORANGE = (255, 165, 0)
-PURPLE = (128, 0, 128)
-GREEN = (0, 128, 0)
-DARK_BLUE = (0, 0, 128)
+RED = (210, 43, 43)
+BLUE = (137, 207, 240)
+YELLOW = (255, 255, 143)
+DARK_YELLOW = (253, 218, 13)
+NEON_ORANGE = (255, 172, 28)
+PURPLE = (159, 43, 104)
+GREEN = (175, 225, 175)
+DARK_BLUE = (0, 71, 171)
 # Centering the grid
 GRID_WIDTH = 300
 GRID_HEIGHT = 300
@@ -110,13 +111,14 @@ def disp():
     quit_text_rect = quit_text.get_rect(center=quit_button.center)
     SCREEN.blit(quit_text, quit_text_rect)
     pygame.display.flip()
-def reset_game():
+def reset_game(savescore):
     global arr, a, dictt, player_score, computer_score
     arr = [0, 0, 0, 0, 0, 0, 0, 0, 0]
     dictt = {'X': [], 'O': []}
     a = 0
-    player_score = 0
-    computer_score = 0
+    if savescore==0:
+        player_score = 0
+        computer_score = 0
 def maxfind():
     global arr
     maxx = 0
@@ -195,9 +197,11 @@ def usinp(pos):
 def handle_click(pos):
     global a
     if play_again_button.collidepoint(pos):
-        reset_game()
+        savescore=1
+        reset_game(savescore)
     elif restart_game_button.collidepoint(pos):
-        reset_game()
+        savescore=0
+        reset_game(savescore)
     elif quit_button.collidepoint(pos):
         pygame.quit()
         exit()
@@ -218,7 +222,7 @@ while running:
                 cell_y = y // cell_size
                 cell_index = cell_y * 3 + cell_x
                 usinp(cell_index)
-                comp()
+                if(a==0):
+                    comp()
                 disp()
-
 pygame.quit()

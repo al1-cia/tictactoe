@@ -1,3 +1,4 @@
+#simple implementation without pygame
 import numpy as np
 import random 
 
