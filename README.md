@@ -1,12 +1,17 @@
-There are two files: pygametictactoe.py and tictactoe.py
+There are two files: "pygametictactoe.py" and "tictactoe.py". "pygametictactoe.py" uses the same logic as tictactoe.py but along with pygame to create a GUI.
 
-pygametictactoe.py uses the logic of tictactoe.py along with pygame to create a GUI.
+#To play the game: 
+1. Copy the code in "pygametictactoe.py" into notepad and save with extension ".py"
+2. Go to command prompt and type "pip install pygame"
+3. Then type "python filename.py"
+4. The game window will open up.
 
-In the game, user (X) plays versus AI (O) and the score is recorded.
+#Logic:
+In the game, user (X) plays versus AI (O). The score is recorded until you restart or quit.
 
 The user may press "restart" to reset the board as well as the scores, or "play again" to reset only the board and keep the score.
 
-There is also a "quit" option.
+There is also a "quit" option which closes the game window.
 
 Below is the displayed output for all three cases (win, lose, draw):
 
